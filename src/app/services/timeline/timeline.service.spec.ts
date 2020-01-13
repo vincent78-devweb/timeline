@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TimelinesService } from './timelines.service';
+import { TimelineService } from './timeline.service';
 
-describe('TimelinesService', () => {
+describe('TimelineService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TimelinesService = TestBed.get(TimelinesService);
+    const service: TimelineService = TestBed.get(TimelineService);
     expect(service).toBeTruthy();
   });
 });

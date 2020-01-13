@@ -1,0 +1,50 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="500px" fxFlex.xs="100%">
+        <mat-card-header>
+            <mat-card-title>Liste des Timelines</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <table mat-table [dataSource]="dataSourceTimeline" class="mat-elevation-z8" matSort style="width: 100%;">
+                <!-- Id Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> Id </th>
+                    <td mat-cell *matCellDef="let timeline"> {{timeline.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Nom </th>
+                    <td mat-cell *matCellDef="let timeline"> {{timeline.name}} </td>
+                </ng-container>
+
+                <!-- creationDate Column -->
+                <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="creationDate"> Date de création </th>
+                    <td mat-cell *matCellDef="let timeline"> {{timeline.creationDate}} </td>
+                </ng-container>
+
+                <!-- updateDate Column -->
+                <ng-container matColumnDef="updateDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="updateDate"> Date de modification </th>
+                    <td mat-cell *matCellDef="let timeline"> {{timeline.updateDate}} </td>
+                </ng-container>
+
+                <!-- cardList Column -->
+                <ng-container matColumnDef="cardList">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="cardList"> Nombre de cartes </th>
+                    <td mat-cell *matCellDef="let timeline"> {{timeline.cardList.length}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="timelineDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: timelineDisplayedColumns;"></tr>
+
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+        </mat-card-content>
+    </mat-card>
+</section> 

@@ -1,10 +1,12 @@
-export interface Timelines {
+import { Card } from '../../models/card/card';
+
+export interface Timeline {
     id: number;
     name: string;
     creationDate: string;
     updateDate: string;
     category: string;
-    cardList: Cards[];
+    cardList: Card[];
 }
 
 /** 

@@ -24,7 +24,7 @@ export class TimelineListComponent implements OnInit {
 
   ngOnInit() {
     // Set displayable columns of the timeline table 
-    this.timelineDisplayedColumns = ['id', 'name', 'creationDate', 'updateDate', 'cardList'];
+    this.timelineDisplayedColumns = ['id', 'name', 'creationDate', 'updateDate', 'cardList', 'edit', 'play', 'delete'];
 
     // Load timeline list from the associate service
     // and subscribe to the callback when loading complete 

@@ -52,7 +52,7 @@
                     <th mat-header-cell *matHeaderCellDef> Jouer </th>
                     <td mat-cell *matCellDef="let timeline">
                         <mat-card-actions align="left">
-                            <a routerLink="['/play', 'timeline']" mat-raised-button color="primary">Jouer</a>
+                            <a [routerLink]="['/play', 'timeline']" mat-raised-button color="primary">Jouer</a>
                         </mat-card-actions>
                         </td>
                 </ng-container>

@@ -11,12 +11,12 @@ const appRouteList: Routes = [
       component: TimelineListComponent
   },
   {
-      path: 'play',
+      path: 'play/:timeline.id',
       component: GameComponent
   },
   {
       path: '**',
-      redirectTo: 'TimelineListComponent'
+      redirectTo: 'timeline'
   }
 ];
 

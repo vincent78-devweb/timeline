@@ -8,6 +8,8 @@ import { TimelineListComponent } from './components/timeline/timeline-list/timel
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 import { GameComponent } from './game/game/game.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { GameComponent } from './game/game/game.component';
     TimelineListComponent,
     GameComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    DemoMaterialModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        DemoMaterialModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FlexLayoutModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -23,7 +23,7 @@ export class TimelineService {
 
   /**
  * Get timelines (caution : asynchron method!)
- * @return Observable<Timelines[]> 
+ * @return Observable<Timelines[]>
  */
   public getTimelines(): Observable<Timeline[]> {
     if (this.timeline.length > 0) {
@@ -44,8 +44,15 @@ export class TimelineService {
     }
   }
 
-
   /**
+   * Get timeline
+   * @return Timeline
+   */
+  public getTimeline(timelineIndex: number): Timeline {
+      return this.timeline[timelineIndex] ;
+    }
+
+      /**
    * Manage http error
    * @param err The HttpErrorResponse to manage
    */

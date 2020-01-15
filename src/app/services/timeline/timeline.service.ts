@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { of, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -10,8 +11,14 @@ import { Timeline } from '../../models/timeline/timeline';
 })
 export class TimelineService {
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
   private timeline: Timeline[] = [];
-  private URL_TIMELINES_LIST: string = "http://localhost:8080//api/timeline/";
+  private URL_TIMELINES: string = "http://localhost:8080//api/timeline/";
 
   /**
    * Constructor
@@ -33,7 +40,7 @@ export class TimelineService {
     } else {
 
       // If not, load timelines JSON collection
-      return this.http.get<Timeline[]>(this.URL_TIMELINES_LIST)
+      return this.http.get<Timeline[]>(this.URL_TIMELINES)
         // Perfom these actions when loading complete
         .pipe(
           // Save and sort the loaded datalist into the timelines array
@@ -52,7 +59,7 @@ export class TimelineService {
       return this.timeline[timelineIndex] ;
     }
 
-      /**
+    /**
    * Manage http error
    * @param err The HttpErrorResponse to manage
    */
@@ -67,4 +74,15 @@ export class TimelineService {
     return throwError(errorMessage);
   }
 
+  /**
+   * Add a timeline
+   * @return 
+   */
+  public create(timeline): Observable<Timeline> {
+    return this.http.post<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
+    .pipe(
+      tap(timeline => this.timeline.push(timeline)),
+      catchError(this.handleError)
+    );
+  }
 }

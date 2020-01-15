@@ -25,3 +25,69 @@
 </section>
 <br />
 
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex="500px" fxFlex.xs="100%">
+        <mat-card-header>
+            <mat-card-title>Liste des cartes</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <table mat-table [dataSource]="dsCards" class="mat-elevation-z8" matSort style="width: 100%;">
+                <!-- Id Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> Id </th>
+                    <td mat-cell *matCellDef="let card"> {{card.id}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Nom </th>
+                    <td mat-cell *matCellDef="let card"> {{card.name}} </td>
+                </ng-container>
+                <!-- date Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="date"> Date de création </th>
+                    <td mat-cell *matCellDef="let card"> {{card.date}} </td>
+                </ng-container>
+                <!-- imageUrl Column -->
+                <ng-container matColumnDef="imageUrl">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="imageUrl"> Lien URL de l'image </th>
+                    <td mat-cell *matCellDef="let card"> {{card.imageUrl}} </td>
+                </ng-container>
+                <!-- description Column -->
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="description"> Description </th>
+                    <td mat-cell *matCellDef="let card"> {{card.description}} </td>
+                </ng-container>
+
+                <!-- Update Column -->
+                <ng-container matColumnDef="update">
+                    <th mat-header-cell *matHeaderCellDef> Modifier </th>
+                    <td mat-cell *matCellDef="let card">
+                        <mat-card-actions align="left">
+                            <a [routerLink]="['/card', card.id]" mat-raised-button color="primary">Modifier</a>
+                        </mat-card-actions>
+                        </td>
+                </ng-container>
+                <!-- Delete Column -->
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef> Supprimer </th>
+                    <td mat-cell *matCellDef="let card">
+                        <mat-card-actions align="left">
+                            <a mat-raised-button color="primary" (click)="onDeleteCard(card)">Supprimer</a>
+                        </mat-card-actions>
+                        </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="cardsDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: cardsDisplayedColumns;"></tr>
+
+            </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+        </mat-card-content>
+    </mat-card>
+</section> 
+

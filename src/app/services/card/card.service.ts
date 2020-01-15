@@ -46,8 +46,10 @@ export class CardService {
    * @return Observable<Card>
    * @return la nouvelle carte créée par la base si réussite, code 400 sinon
    */
-  public createCard(timelineId, card) {
-    return 1;
+ // public createCard(timelineId, card: Card) {
+  public  createCard(timelineId, card: Card): Observable<Card> {
+    const url = this.URL_TIMELINES_LIST + timelineId + '/card';
+    return this.http.post<Card>(url, card);
   }
 
 

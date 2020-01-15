@@ -1,0 +1,38 @@
+<section fxLayout="column wrap" fxLayoutAlign="center center">
+  <mat-card  fxFlex.xs="80%">
+    <mat-card-title>Saisir une carte</mat-card-title>
+
+    <form (ngSubmit)="onSubmit(cardForm.value)" [formGroup]="cardForm" autocomplete="off" fxLayout="column wrap"
+          fxLayoutAlign="center center"
+          novalidate>
+
+      <mat-card-content>
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="name" formControlName="name" id="name">
+          <mat-hint align="begin">Nom</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="date" placeholder="date" formControlName="date" id="date">
+          <mat-hint align="begin">Date</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="url" placeholder="imageUrl" formControlName="imageUrl" id="imageUrl">
+          <mat-hint align="begin">Url</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput  placeholder="description" formControlName="description" id="description"></textarea>
+        </mat-form-field>
+
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <button mat-raised-button color="primary" [disabled]="!cardForm.valid">Enregistrer</button>
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Annuler</button>
+      </mat-card-actions>
+
+    </form>
+  </mat-card>
+</section>

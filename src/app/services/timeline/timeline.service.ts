@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { of, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
+import { Card} from '../../models/card/card';
 import { Timeline } from '../../models/timeline/timeline';
 
 @Injectable({
@@ -52,7 +52,16 @@ export class TimelineService {
       return this.timeline[timelineIndex] ;
     }
 
-      /**
+  /**
+   * Get timeline Card
+   * @return Card
+   */
+  public getCard(timelineIndex, cardIndex): Card {
+    return this.timeline[timelineIndex].cardList[cardIndex] ;
+  }
+
+
+  /**
    * Manage http error
    * @param err The HttpErrorResponse to manage
    */

@@ -24,7 +24,7 @@ const appRouteList: Routes = [
   component: TimelineManagerComponent
 },
 {
-  path: 'newtimeline/:timeline.id',
+  path: 'newtimeline',
   component: TimelineManagerComponent
 },
   {

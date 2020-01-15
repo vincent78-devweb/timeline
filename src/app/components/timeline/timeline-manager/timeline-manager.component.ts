@@ -36,11 +36,15 @@ export class TimelineManagerComponent implements OnInit {
 
   ngOnInit() {
     // Get recieved timeline id
-    
+
     this.route.paramMap.subscribe(
-      params => { this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'))},
-      error => { this.timeline = null;console.log("error" + this.timeline);} 
-      );
+      params => { 
+        if(params.get('timeline.id') != null){
+          this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'));
+        } else {
+          this.timeline = null;
+        }
+      });
 
     // Initialize the timeline add form
     this.timelineForm = new FormGroup({
@@ -74,13 +78,13 @@ export class TimelineManagerComponent implements OnInit {
     var mm = today.getMonth() + 1; //January is 0!
 
     var yyyy = today.getFullYear();
-    if (dd < 10) {
+ /**   if (dd < 10) {
       dd = '0' + dd;
     } 
     if (mm < 10) {
       mm = '0' + mm;
     } 
-    var today2 = yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+*/    var today2 = yyyy + '-' + mm + '-' + dd + ' 00:00:00';
     
     console.log("TS=" + JSON.stringify(this.timeline));
     if(this.timeline == null){

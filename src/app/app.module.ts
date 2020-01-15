@@ -10,12 +10,14 @@ import {DemoMaterialModule} from './material-module';
 import { GameComponent } from './game/game/game.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TimelineManagerComponent } from './components/timeline/timeline-manager/timeline-manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimelineListComponent,
-    GameComponent
+    GameComponent,
+    TimelineManagerComponent
   ],
     imports: [
         BrowserModule,

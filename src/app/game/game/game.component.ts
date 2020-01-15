@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Location} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Timeline} from '../../models/timeline/timeline';
 import { TimelineService} from '../../services/timeline/timeline.service';
@@ -20,6 +21,7 @@ export class GameComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private timelineService: TimelineService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class GameComponent implements OnInit {
       });
 
       this.gameForm = new FormGroup({
-      dateCard: new FormControl('2020', [Validators.required]),
+      dateCard: new FormControl('', [Validators.required]),
       });
   }
 
@@ -49,9 +51,20 @@ export class GameComponent implements OnInit {
     if(year == gameFormValue.dateCard) {
       this.cardsToPlay = this.cardsToPlay.filter(card => card.id != this.cardToPrint.id);
       this.cardsWin.push(this.cardToPrint);
-      this.cardToPrint = this.cardsToPlay[Math.floor(Math.random() * this.cardsToPlay.length)  ];
+      // At leat once more card to play
+      if(this.cardsToPlay.length > 0){
+        this.cardToPrint = this.cardsToPlay[Math.floor(Math.random() * this.cardsToPlay.length)  ];
+        this.cardsWin.sort((a, b) => (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));
+      } else {
+        // End of the game
+        window.alert('Bravo, vous avez gagné, retournez bosser maintenant....');
+        this.onGoBack();
+      }
     }
     this.gameForm.reset();
   }
 
+  onGoBack() {
+    this.location.back();
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
+import {Location} from '@angular/common';
 
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
@@ -30,13 +31,16 @@ export class TimelineManagerComponent implements OnInit {
     private route: ActivatedRoute,
     private timelineService: TimelineService,
     private cardService: CardService,
+    private location: Location
   ) { }
 
   ngOnInit() {
     // Get recieved timeline id
-    this.route.paramMap.subscribe(params => {
-      this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'));
-    });
+    
+    this.route.paramMap.subscribe(
+      params => { this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'))},
+      error => { this.timeline = null;console.log("error" + this.timeline);} 
+      );
 
     // Initialize the timeline add form
     this.timelineForm = new FormGroup({
@@ -53,6 +57,7 @@ export class TimelineManagerComponent implements OnInit {
     this.dsCards.sort = this.sort;
   }
 
+  
   /**
    * Generic error manager for the form controler
    * @param controlName The name property of the field to control (see <mat-error> tag in the template for more details)
@@ -62,9 +67,29 @@ export class TimelineManagerComponent implements OnInit {
     return this.timelineForm.controls[controlName].hasError(errorName);
   }
 
-  onSubmitTimeline(timeline) {
-    this.timelineService.create(timeline).subscribe(timeline => console.log(JSON.stringify(timeline))
-    );
+  onSubmitTimeline(timeline: Timeline) {
+
+    var today = new Date();
+    var dd: number = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    } 
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    var today2 = yyyy + '-' + mm + '-' + dd + ' 00:00:00';
+    
+    console.log("TS=" + JSON.stringify(this.timeline));
+    if(this.timeline == null){
+      timeline.creationDate = today2;
+    }
+
+    timeline.updateDate = today2;
+
+    this.timelineService.create(timeline).subscribe(() => this.location.back() );
   }
 
   onDeleteCard(card) {

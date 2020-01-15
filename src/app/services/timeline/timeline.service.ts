@@ -17,7 +17,7 @@ export class TimelineService {
     })
   };
   private timeline: Timeline[] = [];
-  private URL_TIMELINES: string = "http://localhost:8080//api/timeline/";
+  private URL_TIMELINES: string = "http://localhost:8080/api/timeline";
 
   /**
    * Constructor
@@ -32,22 +32,16 @@ export class TimelineService {
  * @return Observable<Timelines[]>
  */
   public getTimelines(): Observable<Timeline[]> {
-    if (this.timeline.length > 0) {
-      // If already exists, return a observable copy of timelines array
-      return of(this.timeline.slice());
 
-    } else {
-
-      // If not, load timelines JSON collection
-      return this.http.get<Timeline[]>(this.URL_TIMELINES)
-        // Perfom these actions when loading complete
-        .pipe(
-          // Save and sort the loaded datalist into the timelines array
-          tap(dataList => this.timeline = dataList.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))),
-          // Generic error handler
-          catchError(this.handleError)
-        );
-    }
+    // If not, load timelines JSON collection
+    return this.http.get<Timeline[]>(this.URL_TIMELINES)
+      // Perfom these actions when loading complete
+      .pipe(
+        // Save and sort the loaded datalist into the timelines array
+        tap(dataList => this.timeline = dataList.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))),
+        // Generic error handler
+        catchError(this.handleError)
+      );
   }
 
   /**
@@ -99,7 +93,7 @@ export class TimelineService {
     const url = `${this.URL_TIMELINES}/${id}`;
     return this.http.delete(url, this.httpOptions)
     .pipe(
-      catchError(this.handleError)
+      catchError(this.handleError) 
     );
   }
 }

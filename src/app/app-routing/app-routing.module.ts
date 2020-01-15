@@ -16,12 +16,15 @@ const appRouteList: Routes = [
     path: 'card/:timelineId',
   component: CardManagerComponent
 },
-
 {
   path: 'card/:timelineId/:cardId',
     component: CardManagerComponent
 }, {
   path: 'timeline/:timeline.id',
+  component: TimelineManagerComponent
+},
+{
+  path: 'newtimeline/:timeline.id',
   component: TimelineManagerComponent
 },
   {

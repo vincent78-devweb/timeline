@@ -43,7 +43,7 @@
                     <th mat-header-cell *matHeaderCellDef> Editer </th>
                     <td mat-cell *matCellDef="let timeline">
                         <mat-card-actions align="left">
-                            <a routerLink="['/edit', 'timeline']" mat-raised-button color="primary">Editer</a>
+                            <a [routerLink]="['/timeline', timeline.id]" mat-raised-button color="primary">Editer</a>
                         </mat-card-actions>
                         </td>
                 </ng-container>

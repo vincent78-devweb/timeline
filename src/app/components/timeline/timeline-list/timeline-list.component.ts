@@ -36,4 +36,8 @@ export class TimelineListComponent implements OnInit {
 
   }
 
+  onDeleteTimeline(id: number){
+    this.timelineService.delete(id).subscribe(data => console.log("delete terminé"));
+  }
+
 }

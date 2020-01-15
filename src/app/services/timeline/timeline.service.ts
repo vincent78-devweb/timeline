@@ -84,11 +84,22 @@ export class TimelineService {
    * Add a timeline
    * @return
    */
-  public create(timeline): Observable<Timeline> {
+  public create(timeline: Timeline): Observable<Timeline> {
     return this.http.post<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
       .pipe(
         tap(timeline => this.timeline.push(timeline)),
         catchError(this.handleError)
       );
+  }
+
+  /**
+   * Delete a timeline
+   */
+  public delete(id: number): Observable<{}> {
+    const url = `${this.URL_TIMELINES}/${id}`;
+    return this.http.delete(url, this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 }

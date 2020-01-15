@@ -62,7 +62,7 @@
                     <th mat-header-cell *matHeaderCellDef> Supprimer </th>
                     <td mat-cell *matCellDef="let timeline">
                         <mat-card-actions align="left">
-                            <a routerLink="['/delete', 'timeline']" mat-raised-button color="primary">Supprimer</a>
+                            <a mat-raised-button color="primary" (click)="onDeleteTimeline(timeline.id)">Supprimer</a>
                         </mat-card-actions>
                         </td>
                 </ng-container>

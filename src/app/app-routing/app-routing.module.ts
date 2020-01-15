@@ -16,7 +16,7 @@ const appRouteList: Routes = [
   },
   {
       path: '**',
-      redirectTo: 'TimelineListComponent'
+      redirectTo: 'Timeline'
   }
 ];
 

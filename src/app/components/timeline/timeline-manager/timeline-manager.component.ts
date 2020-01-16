@@ -116,7 +116,7 @@ export class TimelineManagerComponent implements OnInit {
       this.timelineService.create(this.timeline).subscribe(() => this.location.back() );
     } 
     if(this.actionFormStatus == "UPDATE"){
-      //this.timelineService.update(this.timeline).subscribe(() => this.location.back() );
+      this.timelineService.update(this.timeline).subscribe(() => this.location.back() );
     } 
   }
 

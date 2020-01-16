@@ -36,7 +36,7 @@ export class CardManagerComponent implements OnInit {
       if (this.cardId != null) {
         let cardId: number = parseInt(this.cardId);
         this.cardService.getCardList(this.timelineId).subscribe((cards: Card[]) => {
-          this.card = cards.filter(t => t.id = cardId)[0];
+          this.card = cards.filter(t => t.id === cardId)[0];
           this.cardForm = new FormGroup({
             name: new FormControl(this.card.name, [Validators.required]),
             date: new FormControl(this.card.date, [Validators.required]),

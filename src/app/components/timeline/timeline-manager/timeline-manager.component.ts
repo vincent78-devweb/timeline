@@ -58,7 +58,7 @@ export class TimelineManagerComponent implements OnInit {
           this.actionFormStatus = "UPDATE";
           this.timelineService.getTimelines().subscribe((timelines:Timeline[]) => {
             // Get Timeline by id
-            this.timeline = timelines.filter(t => t.id = this.paramId)[0];
+            this.timeline = timelines.filter(t => t.id === parseInt(this.paramId))[0];
             if (this.timeline.cardList != null) {
               // Table initialization
               this.dsCards = new MatTableDataSource(this.timeline.cardList);
@@ -122,7 +122,7 @@ export class TimelineManagerComponent implements OnInit {
     this.cardService.deleteCard(this.timeline.id, card.id).subscribe(():void => {
       this.timelineService.getTimelines().subscribe((timelines:Timeline[]) => {
       // Get Timeline by id
-        this.timeline = timelines.filter(t => t.id = this.paramId)[0];
+        this.timeline = timelines.filter(t => t.id === parseInt(this.paramId))[0];
         if (this.timeline.cardList != null) {
         // Table initialization
           this.dsCards = new MatTableDataSource(this.timeline.cardList);

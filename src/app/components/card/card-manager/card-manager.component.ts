@@ -21,22 +21,29 @@ export class CardManagerComponent implements OnInit {
   constructor( private location: Location, private cardService: CardService,private route: ActivatedRoute, private timelineService: TimelineService) { }
 
   ngOnInit() {
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.timelineId=params.get('timelineId');
       this.cardId=params.get('cardId');
+      if(this.cardId != null ) {
+       this.card = this.timelineService.getCard(this.timelineId,this.cardId);
+       this.cardForm = new FormGroup({
+          name: new FormControl(this.card.name, [Validators.required]),
+          date: new FormControl(this.card.date, [Validators.required]),
+          imageUrl: new FormControl(this.card.imageUrl, [Validators.required]),
+          description: new FormControl(this.card.description, [Validators.required]),
+        });
+      }
+      else {
+        this.cardForm = new FormGroup({
+          name: new FormControl('', [Validators.required]),
+          date: new FormControl('', [Validators.required]),
+          imageUrl: new FormControl('', [Validators.required]),
+          description: new FormControl('', [Validators.required]),
+        });
+      }
     });
 
-    this.cardForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      imageUrl: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
-    });
-   if(this.cardId != null ) {
-     let card: Card ;
-     card = this.timelineService.getCard(this.timelineId,this.cardId);
-     console.log(card) ;
-   }
   }
 
   public hasError = (controlName: string, errorName: string) => {

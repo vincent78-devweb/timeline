@@ -48,8 +48,8 @@ export class TimelineService {
    * Get timeline
    * @return Timeline
    */
-  public getTimeline(timelineIndex: number): Timeline {
-      return this.timeline[timelineIndex] ;
+  public getTimeline(timelineId: number): Timeline {
+      return this.timeline.filter(ti => ti.id == timelineId)[0];
     }
 
   /**

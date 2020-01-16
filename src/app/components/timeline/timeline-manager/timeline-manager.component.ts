@@ -35,33 +35,38 @@ export class TimelineManagerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Get recieved timeline id
+    // Initialize the timeline add form
+    this.timelineForm = new FormGroup({
+      name  : new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      category  : new FormControl('', [Validators.required, Validators.maxLength(255)])
+    });
 
+    // Get recieved timeline id
     this.route.paramMap.subscribe(
       params => { 
         if(params.get('timeline.id') != null){
           this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'));
+          console.log(JSON.stringify(this.timeline)) ;
+          if(this.timeline.cardList != null) {
+            this.dsCards = new MatTableDataSource(this.timeline.cardList);
+            this.timelineForm.setValue({'name': this.timeline.name, 'category': this.timeline.category});
+          }
+          else
+            this.dsCards = new MatTableDataSource();
         } else {
           this.timeline = null;
-        }
-      });
+          this.dsCards = new MatTableDataSource();
 
-    // Initialize the timeline add form
-    this.timelineForm = new FormGroup({
-      name  : new FormControl('', [Validators.required, Validators.maxLength(60)])
-    });
+        }
+        this.dsCards.paginator = this.paginator;
+        this.dsCards.sort = this.sort;
+      });
 
     
     // Set displayable columns of the aliments table 
     this.cardsDisplayedColumns = ['id', 'name', 'date', 'imageUrl', 'description', 'update', 'delete'];
-
-    // Load meals list from the associate service
-    this.dsCards = new MatTableDataSource(this.timeline.cardList);
-    this.dsCards.paginator = this.paginator;
-    this.dsCards.sort = this.sort;
   }
 
-  
   /**
    * Generic error manager for the form controler
    * @param controlName The name property of the field to control (see <mat-error> tag in the template for more details)
@@ -72,27 +77,16 @@ export class TimelineManagerComponent implements OnInit {
   }
 
   onSubmitTimeline(timeline: Timeline) {
-
-    var today = new Date();
-    var dd: number = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = '0' + dd;
-    } 
-    if (mm < 10) {
-      mm = '0' + mm;
-    } 
-    var today2 = yyyy + '-' + mm + '-' + dd + ' 00:00:00';
     
-    //console.log("TS=" + JSON.stringify(this.timeline));
+    const d = new Date();
+    let dsNow = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) + " " +
+     ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":00";
+
     if(this.timeline == null){
-      timeline.creationDate = today2;
+      timeline.creationDate = dsNow;
     }
 
-    timeline.updateDate = today2;
-
+    timeline.updateDate = dsNow;
     this.timelineService.create(timeline).subscribe(() => this.location.back() );
   }
 

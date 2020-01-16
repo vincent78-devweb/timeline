@@ -11,9 +11,16 @@
 
                 <mat-form-field style="margin-right: 10px;">
                     <input matInput placeholder="Nom du Timeline" formControlName="name" required>
-                    <mat-hint>60 caractères maximum.</mat-hint>
+                    <mat-hint>255 caractères maximum.</mat-hint>
                     <mat-error *ngIf="hasError('name', 'required')">Saisie obligatoire</mat-error>
-                    <mat-error *ngIf="hasError('name', 'maxlength')">Le Timeline saisi dépasse 60 caractères</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">Le Timeline saisi dépasse 255 caractères</mat-error>
+                </mat-form-field>
+
+                <mat-form-field style="margin-right: 10px;">
+                    <input matInput placeholder="Catégorie" formControlName="category" required>
+                    <mat-hint>255 caractères maximum.</mat-hint>
+                    <mat-error *ngIf="hasError('category', 'required')">Saisie obligatoire</mat-error>
+                    <mat-error *ngIf="hasError('category', 'maxlength')">La catégorie saisie dépasse 255 caractères</mat-error>
                 </mat-form-field>
 
             </mat-card-content>

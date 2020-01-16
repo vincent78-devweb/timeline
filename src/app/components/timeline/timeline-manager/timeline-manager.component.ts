@@ -27,6 +27,10 @@ export class TimelineManagerComponent implements OnInit {
   dsCards: MatTableDataSource<Card>;
   cardsDisplayedColumns = [];
 
+  private actionFormStatus: string; // To define if the form utility. Acceptable values = ADD / UPDATE
+  formTitleLabel: string;
+  formSubtitleLabel: string;
+
   constructor(
     private route: ActivatedRoute,
     private timelineService: TimelineService,
@@ -45,15 +49,24 @@ export class TimelineManagerComponent implements OnInit {
     this.route.paramMap.subscribe(
       params => { 
         if(params.get('timeline.id') != null){
+          this.actionFormStatus = "UPDATE";
           this.timeline = this.timelineService.getTimeline( +params.get('timeline.id'));
-          console.log(JSON.stringify(this.timeline)) ;
+          //console.log(JSON.stringify(this.timeline)) ;
           if(this.timeline.cardList != null) {
+            // Table initialization
             this.dsCards = new MatTableDataSource(this.timeline.cardList);
+            // Form initialization
             this.timelineForm.setValue({'name': this.timeline.name, 'category': this.timeline.category});
+            this.formTitleLabel = "Formulaire de modification";
+            this.formSubtitleLabel = "Modifier un Timeline";
           }
           else
             this.dsCards = new MatTableDataSource();
         } else {
+          this.actionFormStatus = "ADD"
+          this.formTitleLabel = "Formulaire d'ajout";
+          this.formSubtitleLabel = "Ajouter un nouveau Timeline";
+
           this.timeline = null;
           this.dsCards = new MatTableDataSource();
 

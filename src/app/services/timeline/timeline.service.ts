@@ -56,8 +56,8 @@ export class TimelineService {
    * Get timeline Card
    * @return Card
    */
-  public getCard(timelineId, cardIndex): Card {
-    return this.timeline[timelineId].cardList[cardIndex] ;
+  public getCard(timelineId, cardId): Card {
+    return this.getTimeline(timelineId).cardList.filter(cid => cid.id == cardId)[0];
   }
 
   /**
@@ -80,6 +80,18 @@ export class TimelineService {
    */
   public create(timeline: Timeline): Observable<Timeline> {
     return this.http.post<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
+      .pipe(
+        tap(timeline => this.timeline.push(timeline)),
+        catchError(this.handleError)
+      );
+  }
+
+    /**
+   * Update a timeline
+   * @return
+   */
+  public update(timeline: Timeline): Observable<Timeline> {
+    return this.http.put<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
       .pipe(
         tap(timeline => this.timeline.push(timeline)),
         catchError(this.handleError)

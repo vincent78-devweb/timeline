@@ -49,8 +49,8 @@ export class TimelineService {
    * @return Timeline
    */
   public getTimeline(timelineId: number): Timeline {
-      return this.timeline.filter(ti => ti.id == timelineId)[0];
-    }
+    return  this.timeline.filter(ti => ti.id == timelineId)[0];
+  }
 
   /**
    * Get timeline Card
@@ -79,11 +79,7 @@ export class TimelineService {
    * @return
    */
   public create(timeline: Timeline): Observable<Timeline> {
-    return this.http.post<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
-      .pipe(
-        tap(timeline => this.timeline.push(timeline)),
-        catchError(this.handleError)
-      );
+    return this.http.post<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions);
   }
 
     /**
@@ -91,11 +87,7 @@ export class TimelineService {
    * @return
    */
   public update(timeline: Timeline): Observable<Timeline> {
-    return this.http.put<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions)
-      .pipe(
-        tap(timeline => this.timeline.push(timeline)),
-        catchError(this.handleError)
-      );
+    return this.http.put<Timeline>(this.URL_TIMELINES, timeline, this.httpOptions);
   }
 
   /**

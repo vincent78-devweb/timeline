@@ -56,8 +56,8 @@ export class TimelineService {
    * Get timeline Card
    * @return Card
    */
-  public getCard(timelineIndex, cardIndex): Card {
-    return this.timeline[timelineIndex].cardList[cardIndex] ;
+  public getCard(timelineId, cardIndex): Card {
+    return this.timeline[timelineId].cardList[cardIndex] ;
   }
 
   /**

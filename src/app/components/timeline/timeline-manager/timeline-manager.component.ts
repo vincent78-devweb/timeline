@@ -67,7 +67,15 @@ export class TimelineManagerComponent implements OnInit {
           this.formTitleLabel = "Formulaire d'ajout";
           this.formSubtitleLabel = "Ajouter un nouveau Timeline";
 
-          this.timeline = null;
+          this.timeline = {
+            id: null,
+            name: "",
+            creationDate: "",
+            updateDate: "",
+            category: "",
+            cardList: []
+        }
+
           this.dsCards = new MatTableDataSource();
 
         }
@@ -89,21 +97,34 @@ export class TimelineManagerComponent implements OnInit {
     return this.timelineForm.controls[controlName].hasError(errorName);
   }
 
-  onSubmitTimeline(timeline: Timeline) {
+  onSubmitTimeline(timelineFormValues) {
+    // Set Timeline values
+    this.timeline.name = timelineFormValues.name;
+    this.timeline.category = timelineFormValues.category;
     
+    // Set current date
     const d = new Date();
     let dsNow = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2) + " " +
      ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":00";
 
-    if(this.timeline == null){
-      timeline.creationDate = dsNow;
+    if(this.actionFormStatus == "ADD"){
+      this.timeline.creationDate = dsNow;
     }
 
-    timeline.updateDate = dsNow;
-    this.timelineService.create(timeline).subscribe(() => this.location.back() );
+    this.timeline.updateDate = dsNow;
+    if(this.actionFormStatus == "ADD"){
+      this.timelineService.create(this.timeline).subscribe(() => this.location.back() );
+    } 
+    if(this.actionFormStatus == "UPDATE"){
+      //this.timelineService.update(this.timeline).subscribe(() => this.location.back() );
+    } 
   }
 
   onDeleteCard(card) {
 
   }
+
+  public onCancel = () => {
+    this.location.back();
+  };
 }

@@ -53,7 +53,7 @@
                 <ng-container matColumnDef="play">
                     <th mat-header-cell *matHeaderCellDef> Jouer </th>
                     <td mat-cell *matCellDef="let timeline">
-                        <mat-card-actions align="left">
+                        <mat-card-actions align="left" *ngIf="timeline.cardList.length > 0">
                             <a [routerLink]="['/play',timeline.id]" mat-raised-button color="primary">Jouer</a>
                         </mat-card-actions>
                         </td>

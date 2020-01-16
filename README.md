@@ -31,8 +31,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 -  Liste Timelines
     - Bouton Créer
     - Bouton Editer
-    - Bouton Supprimer
-    - Bouton Jouer ( test  0 Carte)
+    - Bouton Supprimer => OK
+    - Bouton Jouer => OK
 
 -  Timeline
     - écran MAJ
@@ -41,6 +41,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     - bouton supprimer Carte
     
 - Play  
-   - Retour à la liste
-    - trier les cartes
+   - Retour à la liste => OK
+    - trier les cartes => OK
 

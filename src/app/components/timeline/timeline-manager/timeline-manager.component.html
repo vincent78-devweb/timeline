@@ -33,15 +33,16 @@
 </section>
 <br />
 
-<section fxLayout="row wrap" fxLayoutAlign="center center">
+<section fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="timeline.id >= -1">
     <mat-card fxFlex="500px" fxFlex.xs="100%">
         <mat-card-header>
             <mat-card-title>Liste des cartes</mat-card-title>
+          <a [routerLink]="['/card', timeline.id]" mat-raised-button color="primary">Ajouter</a>
         </mat-card-header>
 
-        <mat-card-content>
+        <mat-card-content >
 
-            <table mat-table [dataSource]="dsCards" matSort style="width: 100%;">
+          <table mat-table [dataSource]="dsCards" matSort style="width: 100%;">
                 <!-- Id Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> Id </th>
@@ -91,11 +92,11 @@
                 <tr mat-row *matRowDef="let row; columns: cardsDisplayedColumns;"></tr>
 
             </table>
-            
+
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
 
         </mat-card-content>
     </mat-card>
-</section> 
+</section>
 

@@ -28,9 +28,9 @@ export class TimelineService {
   ) { }
 
   /**
- * Get timelines (caution : asynchron method!)
- * @return Observable<Timelines[]>
- */
+  * Get timelines (caution : asynchron method!)
+  * @return Observable<Timelines[]>
+  **/
   public getTimelines(): Observable<Timeline[]> {
 
     // If not, load timelines JSON collection
@@ -44,21 +44,10 @@ export class TimelineService {
       );
   }
 
-  /**
-   * Get timeline
-   * @return Timeline
-   */
-  public getTimeline(timelineId: number): Timeline {
-    return  this.timeline.filter(ti => ti.id == timelineId)[0];
-  }
-
-  /**
+ /**
    * Get timeline Card
    * @return Card
    */
-  public getCard(timelineId, cardId): Card {
-    return this.getTimeline(timelineId).cardList.filter(cid => cid.id == cardId)[0];
-  }
 
   /**
    * Manage http error
@@ -97,7 +86,7 @@ export class TimelineService {
     const url = `${this.URL_TIMELINES}/${id}`;
     return this.http.delete(url, this.httpOptions)
     .pipe(
-      catchError(this.handleError) 
+      catchError(this.handleError)
     );
   }
 }

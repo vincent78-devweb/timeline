@@ -9,7 +9,7 @@ import {catchError, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CardService {
-  private URL_TIMELINES_LIST: string = 'http://localhost:8080//api/timeline/';
+  private URL_TIMELINES_LIST: string = 'http://localhost:8080/api/timeline/';
 
   /**
    * Constructor
@@ -46,8 +46,8 @@ export class CardService {
    * @return Observable<Card>
    * @return la nouvelle carte créée par la base si réussite, code 400 sinon
    */
- // public createCard(timelineId, card: Card) {
-  public  createCard(timelineId, card: Card): Observable<Card> {
+  // public createCard(timelineId, card: Card) {
+  public createCard(timelineId, card: Card): Observable<Card> {
     const url = this.URL_TIMELINES_LIST + timelineId + '/card';
     return this.http.post<Card>(url, card);
   }
@@ -60,7 +60,9 @@ export class CardService {
    * @return Observable<Card>
    * @return la nouvelle carte créée par la base si réussite, code 400 sinon
    */
-  public updateCard(timelineId, card) {
+  public updateCard(timelineId, card): Observable<Card> {
+    const url = this.URL_TIMELINES_LIST + timelineId + '/card';
+    return this.http.put<Card>(url, card);
   }
 
   /**
@@ -69,7 +71,9 @@ export class CardService {
    * @param cardToDelete
    * @return nothing
    */
-  public deleteCard(timelineId, card) {
+  public deleteCard(timelineId, cardId): Observable<any> {
+    const url = this.URL_TIMELINES_LIST + timelineId + '/card/' + cardId;
+    return this.http.delete(url);
   }
 
   /**

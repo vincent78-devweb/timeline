@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ParamMap} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
-import { Card} from '../../../models/card/card';
-import { CardService} from '../../../services/card/card.service';
-import { TimelineService} from '../../../services/timeline/timeline.service';
+import {Card} from '../../../models/card/card';
+import {CardService} from '../../../services/card/card.service';
+import {TimelineService} from '../../../services/timeline/timeline.service';
 
 @Component({
   selector: 'app-card-manager',
@@ -15,31 +15,34 @@ import { TimelineService} from '../../../services/timeline/timeline.service';
 })
 export class CardManagerComponent implements OnInit {
   public card: Card;
-  public timelineId:string;
+  public timelineId: string;
   public cardForm: FormGroup;
-  public cardId:string;
-  constructor( private location: Location, private cardService: CardService,private route: ActivatedRoute, private timelineService: TimelineService) { }
+  public cardId: string;
+
+  constructor(private location: Location, private cardService: CardService, private route: ActivatedRoute, private timelineService: TimelineService) {
+  }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.timelineId=params.get('timelineId');
-      this.cardId=params.get('cardId');
-      if(this.cardId != null ) {
-       this.card = this.timelineService.getCard(this.timelineId,this.cardId);
-       this.cardForm = new FormGroup({
-          name: new FormControl(this.card.name, [Validators.required]),
-          date: new FormControl(this.card.date, [Validators.required]),
-          imageUrl: new FormControl(this.card.imageUrl, [Validators.required]),
-          description: new FormControl(this.card.description, [Validators.required]),
-        });
-      }
-      else {
-        this.cardForm = new FormGroup({
-          name: new FormControl('', [Validators.required]),
-          date: new FormControl('', [Validators.required]),
-          imageUrl: new FormControl('', [Validators.required]),
-          description: new FormControl('', [Validators.required]),
+      this.cardForm = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        date: new FormControl('', [Validators.required]),
+        imageUrl: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+      });
+
+      this.timelineId = params.get('timelineId');
+      this.cardId = params.get('cardId');
+      if (this.cardId != null) {
+        let cardId: number = parseInt(this.cardId);
+        this.cardService.getCardList(this.timelineId).subscribe((cards: Card[]) => {
+          this.card = cards.filter(t => t.id = cardId)[0];
+          this.cardForm = new FormGroup({
+            name: new FormControl(this.card.name, [Validators.required]),
+            date: new FormControl(this.card.date, [Validators.required]),
+            imageUrl: new FormControl(this.card.imageUrl, [Validators.required]),
+            description: new FormControl(this.card.description, [Validators.required]),
+          });
         });
       }
     });
@@ -55,12 +58,10 @@ export class CardManagerComponent implements OnInit {
   };
 
   public onSubmit = (cardFormValue) => {
-    console.log("onSubmit") ;
+    console.log('onSubmit');
 
     if (this.cardForm.valid) {
       this.cardUpdate(cardFormValue);
-      console.log("Valid") ;
-//      this.location.back();
     }
   };
 
@@ -72,10 +73,19 @@ export class CardManagerComponent implements OnInit {
       imageUrl: cardFormValue.imageUrl,
       description: cardFormValue.description,
     };
-    this.cardService.createCard(this.timelineId,card).subscribe(
-      card => {
-        console.log(card);
-      }
-    );
-  }
+    if (this.cardId != null) {
+      card.id = parseInt(this.cardId,10) ;
+      this.cardService.updateCard(this.timelineId, card).subscribe(
+        () => {
+          this.location.back();
+        });
+    } else {
+      this.cardService.createCard(this.timelineId, card).subscribe(
+        () => {
+          this.location.back();
+        }
+      );
+    }
+
+  };
 }

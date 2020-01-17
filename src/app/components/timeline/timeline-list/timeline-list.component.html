@@ -1,8 +1,12 @@
 <section fxLayoutAlign="center center">
     <mat-card >
         <mat-card-header fxLayoutAlign="center center">
-            <mat-card-title >Liste des Timelines</mat-card-title>
-            <a [routerLink]="['/newtimeline']" mat-raised-button color="primary">Ajouter</a>
+            <mat-card-title >{{ 'HOME.TITLE' | translate }}</mat-card-title>
+          <select #langSelect (change)="translate.use(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>
+          <br>
+            <a [routerLink]="['/newtimeline']" mat-raised-button color="primary">{{ 'HOME.ADD' | translate }}</a>
         </mat-card-header>
 
         <mat-card-content>

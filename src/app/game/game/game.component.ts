@@ -40,11 +40,6 @@ export class GameComponent implements OnInit {
       });
     });
   }
-
-  public hasError = (controlName: string, errorName: string) => {
-      return this.gameForm.controls[controlName].hasError(errorName);
-    };
-
   public play = (gameFormValue) => {
       if (this.gameForm.valid) {
         this.check(gameFormValue);

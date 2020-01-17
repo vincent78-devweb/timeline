@@ -26,7 +26,7 @@ export class TimelineManagerComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  dsCards: MatTableDataSource<Card>;
+  public dsCards: MatTableDataSource<Card>;
   cardsDisplayedColumns = [];
 
   private actionFormStatus: string; // To define if the form utility. Acceptable values = ADD / UPDATE
@@ -62,15 +62,18 @@ export class TimelineManagerComponent implements OnInit {
             if (this.timeline.cardList != null) {
               // Table initialization
               this.dsCards = new MatTableDataSource(this.timeline.cardList);
+              this.dsCards.paginator = this.paginator;
+              this.dsCards.sort = this.sort;
+
               // Form initialization
               this.timelineForm.setValue({'name': this.timeline.name, 'category': this.timeline.category});
               this.formTitleLabel = "Formulaire de modification";
               this.formSubtitleLabel = "Modifier un Timeline";
             } else {
               this.dsCards = new MatTableDataSource();
+              this.dsCards.paginator = this.paginator;
+              this.dsCards.sort = this.sort;
             }
-            this.dsCards.paginator = this.paginator;
-            this.dsCards.sort = this.sort;
           });
         }
         else {
@@ -124,6 +127,7 @@ export class TimelineManagerComponent implements OnInit {
       // Get Timeline by id
         this.timeline = timelines.filter(t => t.id === parseInt(this.paramId))[0];
         if (this.timeline.cardList != null) {
+
         // Table initialization
           this.dsCards = new MatTableDataSource(this.timeline.cardList);
         // Form initialization

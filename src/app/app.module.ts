@@ -12,6 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardManagerComponent } from './components/card/card-manager/card-manager.component';
 import { TimelineManagerComponent } from './components/timeline/timeline-manager/timeline-manager.component';
+import { CardListComponent } from './components/card/card-list/card-list.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { TimelineManagerComponent } from './components/timeline/timeline-manager
     GameComponent,
     CardManagerComponent,
     TimelineManagerComponent,
+    CardListComponent,
   ],
     imports: [
         BrowserModule,

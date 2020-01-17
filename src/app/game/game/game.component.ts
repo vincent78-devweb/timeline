@@ -30,7 +30,7 @@ export class GameComponent implements OnInit {
 
       this.timelineService.getTimelines().subscribe((timelines :Timeline[] ) => {
         // Get Timeline by id
-        this.timeline = timelines.filter(t => t.id = +params.get('timeline.id'))[0];
+        this.timeline = timelines.filter(t => t.id === +params.get('timeline.id'))[0];
         this.cardsToPlay = this.timeline.cardList;
         this.cardToPrint = this.cardsToPlay[Math.floor(Math.random() * this.cardsToPlay.length)];
       });
@@ -38,12 +38,7 @@ export class GameComponent implements OnInit {
       this.gameForm = new FormGroup({
         dateCard: new FormControl('', [Validators.required]),
       });
-
-
-
-
-
-     });
+    });
   }
 
   public hasError = (controlName: string, errorName: string) => {
